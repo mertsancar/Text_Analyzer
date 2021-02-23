@@ -6,7 +6,6 @@ class Handler(SimpleHTTPRequestHandler):
 
         def do_GET(self):
             SimpleHTTPRequestHandler.do_GET(self)
-            self.wfile.write(b"Hello there!")
 
         def do_POST(self):
             self.send_response(200)
@@ -94,9 +93,9 @@ class Handler(SimpleHTTPRequestHandler):
             response_body.update({"medianWord":medianWord})
 
 
-
            #Median word length
             response_body.update({"medianWordLength":str(len(medianWord))})
+
 
            #Top 5 most common words
             temp = temp.split()
@@ -106,8 +105,7 @@ class Handler(SimpleHTTPRequestHandler):
             
 
             for x,y in response_body.items():
-                self.wfile.write(x.encode("ascii")+b":"+y.encode("ascii")+b"\n")
-                self.wfile.write(b"\n")
+                self.wfile.write(x.encode("ascii")+b":"+y.encode("ascii")+b"\n\n")
             
             return
 
