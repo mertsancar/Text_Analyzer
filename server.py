@@ -24,14 +24,14 @@ class Handler(SimpleHTTPRequestHandler):
             #to fix punctuation
             punctuation = {"text=":""    ,    "+":" "    ,   "%2C":","    ,     "%E2%80%99":"'"    ,    "%0A":"\n"     ,   "%27":"'"    ,   "%29":")"   ,    "%28":"("    ,    ".":" "}
             post_data = post_data.decode("utf-8")
-            for x in range(9):                    
+            for x in range(len(punctuation)):                    
                 post_data = post_data.replace(list(punctuation.keys())[x],list(punctuation.values())[x])
             
             
             temp = post_data
 
             #Word count
-            for x in range(2,9):
+            for x in range(2,len(punctuation)):
                 if list(punctuation.values())[x] == " ":
                     continue
                 temp = temp.replace(list(punctuation.values())[x],"")
@@ -44,7 +44,7 @@ class Handler(SimpleHTTPRequestHandler):
 
 
             #Number of Letters
-            for x in range(9):
+            for x in range(len(punctuation)):
                 if list(punctuation.values())[x] == " ":
                     continue
                 temp = temp.replace(list(punctuation.values())[x],"")
@@ -56,7 +56,7 @@ class Handler(SimpleHTTPRequestHandler):
 
 
             #Longest word
-            for x in range(2,9):
+            for x in range(2,len(punctuation)):
                 if list(punctuation.values())[x] == " ":
                     continue
                 temp = temp.replace(list(punctuation.values())[x]," ")
@@ -69,7 +69,7 @@ class Handler(SimpleHTTPRequestHandler):
 
             #Average word length
             sum = 0
-            for x in range(2,9):
+            for x in range(2,len(punctuation)):
                 if list(punctuation.values())[x] == " ":
                     continue
                 temp = temp.replace(list(punctuation.values())[x]," ")
