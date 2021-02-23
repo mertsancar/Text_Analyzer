@@ -1,4 +1,5 @@
 from http.server import BaseHTTPRequestHandler,HTTPServer, SimpleHTTPRequestHandler
+from collections import Counter
 
 
 class Handler(SimpleHTTPRequestHandler):
@@ -18,7 +19,7 @@ class Handler(SimpleHTTPRequestHandler):
             
 
             #output
-            response_body = {"wordCount":"" , "letters":"" , "longest":"" , "avgLength":"" , "duration":"" , "medianWordLength":"" , "medianWord":"" , "language":""}
+            response_body = {"wordCount":"" , "letters":"" , "longest":"" , "avgLength":"" , "duration":"" , "medianWordLength":"" , "medianWord":"" ,"mostCommon":"", "language":""}
 
             #to fix punctuation
             punctuation = {"text=":""    ,    "+":" "    ,   "%2C":","    ,     "%E2%80%99":"'"    ,    "%0A":"\n"     ,   "%27":"'"    ,   "%29":")"   ,    "%28":"("    ,    ".":" "}
@@ -96,6 +97,13 @@ class Handler(SimpleHTTPRequestHandler):
 
            #Median word length
             response_body.update({"medianWordLength":str(len(medianWord))})
+
+           #Top 5 most common words
+            temp = temp.split()
+            counter = Counter(temp)
+            temp = post_data
+            response_body.update({"mostCommon":str(counter.most_common(5))})
+            
 
             for x,y in response_body.items():
                 self.wfile.write(x.encode("ascii")+b":"+y.encode("ascii")+b"\n")
